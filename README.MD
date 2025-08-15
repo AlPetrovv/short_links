@@ -8,5 +8,5 @@
 
 1. Clone the repository
 2. Write .env file in the root directory like in the example(.template.env)
-3. run command ```sh make run```
+3. run command ```make run```
 4. Open http://localhost:8000/docs
