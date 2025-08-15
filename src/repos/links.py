@@ -11,8 +11,8 @@ class LinkRepo(BaseRepo):
     async def get_link(self, link_id: int) -> Optional[Link]:
         return await self._get_model(Link, [Link.id == link_id])
 
-    async def get_link_by_code(self, short_url: str) -> Optional[Link]:
-        return await self._get_model(Link, [Link.code == short_url])
+    async def get_link_by_code(self, code: str) -> Optional[Link]:
+        return await self._get_model(Link, [Link.code == code])
 
     async def get_link_by_source_url(self, source_url: str) -> Optional[Link]:
         return await self._get_model(Link, [Link.source_url == source_url])
