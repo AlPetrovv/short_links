@@ -16,8 +16,30 @@ pydantic-settings = "^2.10.1"
 aiosqlite = "^0.21.0"
 ruff = "^0.12.9"
 pydantic = "^2.11.7"
+alembic = "^1.16.4"
+validators = "^0.35.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff.isort]
+known-first-party = ["src", ]
+known-third-party = ["sqlalchemy", "pydantic", "fastapi",]
+default-section = "THIRDPARTY"
+section-order = ["STDLIB","THIRDPARTY","FIRSTPARTY","LOCALFOLDER"]
+
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.mccabe]
+max-complexity = 5
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
