@@ -30,14 +30,6 @@ class DBHelper:
             expire_on_commit=False,
         )
 
-    def get_connection(self):
-        with self.engine.begin() as conn:
-            return conn
-
-    async def get_session(self) -> AsyncSession:
-        async with self.session_factory() as session:
-            return session
-
 
 helper = DBHelper(
     db_url=settings.db.url,
