@@ -56,8 +56,6 @@ async def redirect_link(code: str, repo: "RequestRepo" = Depends(get_repo)):
     )
 
 
-@router.get(
-    "/stats/{code}", response_model=LinkRead, response_model_exclude={"code", "id"}
-)
+@router.get("/stats/{code}", response_model=LinkRead, response_model_exclude={"code", "id"})
 async def get_stats(code: str, repo: "RequestRepo" = Depends(get_repo)):
     return await repo.links.get_link_by_code(code)
