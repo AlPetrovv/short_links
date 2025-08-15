@@ -1,5 +1,4 @@
 from typing import TYPE_CHECKING
-from urllib.parse import urljoin
 
 import validators
 from fastapi import APIRouter, Request, Depends, HTTPException
@@ -17,11 +16,15 @@ if TYPE_CHECKING:
 
 
 @router.post("/shorten", status_code=201)
-async def shorten_link(request: Request, link_in: LinkIn, repo: "RequestRepo" = Depends(get_repo)):
-    """ Create short link and return short url"""
+async def shorten_link(
+    request: Request, link_in: LinkIn, repo: "RequestRepo" = Depends(get_repo)
+):
+    """Create short link and return short url"""
     # check if source url is valid
     if not validators.url(str(link_in.source_url)):
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid URL")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid URL"
+        )
     # check if source url already exists
     exists_link = await repo.links.get_link_by_source_url(str(link_in.source_url))
     if exists_link is not None:
@@ -41,12 +44,20 @@ async def redirect_link(code: str, repo: "RequestRepo" = Depends(get_repo)):
     """Redirect to source url by code"""
     link = await repo.links.get_link_by_code(code)
     if link is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found")
-    link_in = UpdatePartialLink.model_validate({"id": link.id, "use_count": link.use_count + 1})
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Link not found"
+        )
+    link_in = UpdatePartialLink.model_validate(
+        {"id": link.id, "use_count": link.use_count + 1}
+    )
     await repo.links.update_partial_link(link_in)
-    return RedirectResponse(link.source_url, status_code=status.HTTP_301_MOVED_PERMANENTLY)
+    return RedirectResponse(
+        link.source_url, status_code=status.HTTP_301_MOVED_PERMANENTLY
+    )
 
 
-@router.get("/stats/{code}", response_model=LinkRead, response_model_exclude={"code", "id"})
+@router.get(
+    "/stats/{code}", response_model=LinkRead, response_model_exclude={"code", "id"}
+)
 async def get_stats(code: str, repo: "RequestRepo" = Depends(get_repo)):
     return await repo.links.get_link_by_code(code)

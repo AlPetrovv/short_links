@@ -6,6 +6,8 @@ from .base import BaseRepo
 
 
 class LinkRepo(BaseRepo):
+    """Repo for links"""
+
     async def get_link(self, link_id: int) -> Optional[Link]:
         return await self._get_model(Link, [Link.id == link_id])
 

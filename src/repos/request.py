@@ -9,6 +9,7 @@ class RequestRepo:
     """
     Repo that contains all repos
     """
+
     session: AsyncSession
 
     @property

@@ -1,4 +1,3 @@
-import logging
 import os.path
 import pathlib
 import string
@@ -46,4 +45,4 @@ class Settings(BaseSettings):
     db: Database
 
 
-settings = Settings()  # noqa
+settings = Settings()  # noqa can be added to cache

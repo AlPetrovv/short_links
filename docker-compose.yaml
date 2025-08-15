@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - app:/home/app
+      - app:/home/app # mount app directory
     ports:
       - "8000:8000"
     env_file:

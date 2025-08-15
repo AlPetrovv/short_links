@@ -15,6 +15,5 @@ class Link(IDPKINTMixin, CratedAtMixin, Base):
     def __str__(self):
         return f"Link{self.id}: {self.source_url} -> {self.code}"
 
-
     def get_short_url(self, base_url: str) -> str:
         return urljoin(base_url, self.code)
