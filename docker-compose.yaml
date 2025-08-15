@@ -6,8 +6,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+
     volumes:
-      - app:/home/app # mount app directory
+      - ./db.sqlite3:/home/app/db.sqlite3
     ports:
       - "8000:8000"
     env_file:
@@ -16,6 +17,3 @@ services:
 networks:
   default:
     driver: bridge
-
-volumes:
-  app:
